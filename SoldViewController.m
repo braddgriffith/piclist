@@ -7,7 +7,6 @@
 //
 
 #import "SoldViewController.h"
-#import "PhotoScreenViewController.h"
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "User.h"
@@ -41,7 +40,6 @@ User *localUser;
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
     
     localUser = [AppDelegate user];
     
@@ -129,8 +127,7 @@ User *localUser;
 {
     if (buttonIndex == 0) {
         if (alertView.tag == 10) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
-            
+            [self dismissModalViewControllerAnimated:YES];
         }
     }
 }
@@ -143,7 +140,7 @@ User *localUser;
 //            NSLog(@"Receipt Sent");
 //        }
 //    }];
-    [self.navigationController popToRootViewControllerAnimated:YES];
+    [self dismissModalViewControllerAnimated:YES];
 }
 
 @end

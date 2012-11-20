@@ -4,16 +4,17 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
     </dependencies>
     <scenes>
-        <!--Welceome View Controller-->
+        <!--Welcome View Controller-->
         <scene sceneID="5">
             <objects>
-                <viewController id="2" customClass="WelceomeViewController" sceneMemberID="viewController">
+                <viewController id="2" customClass="WelcomeViewController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3">
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="XXS-RX-jBW">
                                 <rect key="frame" x="69" y="252" width="183" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                 <state key="normal" title="Sell My Tickets">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -22,33 +23,33 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <segue destination="IQk-I8-OMz" kind="modal" identifier="Sell" id="FCn-nj-ShJ"/>
+                                    <action selector="takePhoto" destination="2" eventType="touchUpInside" id="sbW-eH-vxq"/>
                                 </connections>
                             </button>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Hey! Welcome to Flash." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="oVo-GV-Fj1">
-                                <rect key="frame" x="70" y="128" width="181" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <rect key="frame" x="51" y="127" width="218" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="The fastest way to sell tickets." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ak9-ao-uf1">
                                 <rect key="frame" x="40" y="165" width="241" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Ever." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lxs-Wk-3Wf">
                                 <rect key="frame" x="140" y="188" width="40" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="StanfordFootballExample.JPG" id="5lZ-jz-eEx">
                                 <rect key="frame" x="20" y="329" width="280" height="183"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -57,35 +58,12 @@
                     <connections>
                         <outlet property="exampleImages" destination="5lZ-jz-eEx" id="fyE-pO-vcM"/>
                         <outlet property="sellButton" destination="XXS-RX-jBW" id="Zy2-tf-cpz"/>
+                        <segue destination="M49-ex-qLt" kind="modal" identifier="SoldSegue" id="IV2-Tw-LAW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="707" y="43"/>
-        </scene>
-        <!--Photo Screen View Controller-->
-        <scene sceneID="3jQ-yl-rD0">
-            <objects>
-                <viewController id="IQk-I8-OMz" customClass="PhotoScreenViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="P3n-IK-svW">
-                        <rect key="frame" x="0.0" y="20" width="320" height="548"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="EBW-6n-QAS">
-                                <rect key="frame" x="10" y="10" width="300" height="527"/>
-                            </imageView>
-                        </subviews>
-                        <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="pWf-G5-VXw"/>
-                    <connections>
-                        <outlet property="photo" destination="EBW-6n-QAS" id="6Xt-sg-haU"/>
-                        <segue destination="M49-ex-qLt" kind="modal" identifier="SoldSegue" id="Slr-VB-51q"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yjl-Bi-H73" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1149" y="49"/>
         </scene>
         <!--Sold View Controller-->
         <scene sceneID="B0U-kw-Ltu">
@@ -134,7 +112,7 @@
                                 </connections>
                             </button>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="pxQ-Nb-J9G"/>
                     <connections>
@@ -145,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GiG-2K-0rs" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1600" y="49"/>
+            <point key="canvasLocation" x="1114" y="43"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="FOq-qG-nJY">

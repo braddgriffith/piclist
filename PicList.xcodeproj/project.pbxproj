@@ -19,7 +19,6 @@
 		E66F2341164AEA2E0086E406 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66F233F164AEA2E0086E406 /* MainStoryboard_iPhone.storyboard */; };
 		E66F2344164AEA2E0086E406 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66F2342164AEA2E0086E406 /* MainStoryboard_iPad.storyboard */; };
 		E67358DC165AE07D00663CB5 /* StanfordFootballExample.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E67358DB165AE07D00663CB5 /* StanfordFootballExample.JPG */; };
-		E6D5A27B164B090C00FEED3E /* PhotoScreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D5A27A164B090C00FEED3E /* PhotoScreenViewController.m */; };
 		E6D5A29C164B1B5E00FEED3E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A29B164B1B5E00FEED3E /* AudioToolbox.framework */; };
 		E6D5A29E164B1B6800FEED3E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A29D164B1B6800FEED3E /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E6D5A2A0164B1B6F00FEED3E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A29F164B1B6F00FEED3E /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -36,7 +35,7 @@
 		E6D5A2CE1651846800FEED3E /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = E6D5A2CD1651846800FEED3E /* User.m */; };
 		E6FA0575165201A4005799B7 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6FA0574165201A4005799B7 /* Parse.framework */; };
 		E6FA0576165206E7005799B7 /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A2AF164B1BCE00FEED3E /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		E6FA057D165460F1005799B7 /* WelceomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FA057C165460F0005799B7 /* WelceomeViewController.m */; };
+		E6FA057D165460F1005799B7 /* WelcomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FA057C165460F0005799B7 /* WelcomeViewController.m */; };
 		E6FA05B31655B25A005799B7 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = E6FA05B21655B25A005799B7 /* MBProgressHUD.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 /* End PBXBuildFile section */
 
@@ -56,10 +55,8 @@
 		E66F233D164AEA2E0086E406 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		E66F2340164AEA2E0086E406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPhone.storyboard; sourceTree = "<group>"; };
 		E66F2343164AEA2E0086E406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
-		E66F2345164AEA2E0086E406 /* WelceomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WelceomeViewController.h; sourceTree = "<group>"; };
+		E66F2345164AEA2E0086E406 /* WelcomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		E67358DB165AE07D00663CB5 /* StanfordFootballExample.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StanfordFootballExample.JPG; sourceTree = "<group>"; };
-		E6D5A279164B090C00FEED3E /* PhotoScreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoScreenViewController.h; sourceTree = "<group>"; };
-		E6D5A27A164B090C00FEED3E /* PhotoScreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoScreenViewController.m; sourceTree = "<group>"; };
 		E6D5A280164B18AC00FEED3E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E6D5A29B164B1B5E00FEED3E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E6D5A29D164B1B6800FEED3E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -79,7 +76,7 @@
 		E6D5A2CC1651846800FEED3E /* User.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = User.h; path = ../User.h; sourceTree = "<group>"; };
 		E6D5A2CD1651846800FEED3E /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = User.m; path = ../User.m; sourceTree = "<group>"; };
 		E6FA0574165201A4005799B7 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
-		E6FA057C165460F0005799B7 /* WelceomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelceomeViewController.m; sourceTree = "<group>"; };
+		E6FA057C165460F0005799B7 /* WelcomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeViewController.m; sourceTree = "<group>"; };
 		E6FA05B11655B25A005799B7 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		E6FA05B21655B25A005799B7 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -161,10 +158,8 @@
 				E66F2342164AEA2E0086E406 /* MainStoryboard_iPad.storyboard */,
 				E66F2336164AEA2E0086E406 /* AppDelegate.h */,
 				E66F2337164AEA2E0086E406 /* AppDelegate.m */,
-				E66F2345164AEA2E0086E406 /* WelceomeViewController.h */,
-				E6FA057C165460F0005799B7 /* WelceomeViewController.m */,
-				E6D5A279164B090C00FEED3E /* PhotoScreenViewController.h */,
-				E6D5A27A164B090C00FEED3E /* PhotoScreenViewController.m */,
+				E66F2345164AEA2E0086E406 /* WelcomeViewController.h */,
+				E6FA057C165460F0005799B7 /* WelcomeViewController.m */,
 				E6D5A2C1164DE48F00FEED3E /* SoldViewController.h */,
 				E6D5A2C2164DE48F00FEED3E /* SoldViewController.m */,
 				E6D5A2CC1651846800FEED3E /* User.h */,
@@ -261,10 +256,9 @@
 			files = (
 				E66F2334164AEA2E0086E406 /* main.m in Sources */,
 				E66F2338164AEA2E0086E406 /* AppDelegate.m in Sources */,
-				E6D5A27B164B090C00FEED3E /* PhotoScreenViewController.m in Sources */,
 				E6D5A2C3164DE48F00FEED3E /* SoldViewController.m in Sources */,
 				E6D5A2CE1651846800FEED3E /* User.m in Sources */,
-				E6FA057D165460F1005799B7 /* WelceomeViewController.m in Sources */,
+				E6FA057D165460F1005799B7 /* WelcomeViewController.m in Sources */,
 				E6FA05B31655B25A005799B7 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

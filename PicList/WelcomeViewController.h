@@ -11,7 +11,7 @@
 #import <Parse/Parse.h>
 #include <stdlib.h> // For math functions including arc4random (a number randomizer)
 
-@interface WelceomeViewController : UIViewController
+@interface WelcomeViewController : UIViewController
 {
     IBOutlet UIImageView* photo;
     MBProgressHUD *HUD;
@@ -21,5 +21,7 @@
 @property (nonatomic, strong) PFObject *userPhoto;
 @property (nonatomic, strong) IBOutlet UIButton *sellButton;
 @property (strong, nonatomic) IBOutlet UIImageView *exampleImages;
+
+- (IBAction)takePhoto;
 
 @end

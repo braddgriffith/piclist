@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WelceomeViewController.h"
+#import "WelcomeViewController.h"
 #import "User.h"
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 
-@property (strong, nonatomic) WelceomeViewController *viewController;
+@property (strong, nonatomic) WelcomeViewController *viewController;
 
 @property (strong, nonatomic) User *user;
 

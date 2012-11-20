@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 Brad Grifffith. All rights reserved.
 //
 
-#import "WelceomeViewController.h"
+#import "WelcomeViewController.h"
 #import "SoldViewController.h"
 #import <UIKit/UIKit.h>
 #import <QuartzCore/QuartzCore.h>
 
-@interface WelceomeViewController ()
-
+@interface WelcomeViewController ()
+-(IBAction)takePhoto;
 @end
 
-@implementation WelceomeViewController
+@implementation WelcomeViewController
 
 @synthesize sellButton;
 @synthesize exampleImages;
@@ -25,10 +25,23 @@ int i = 0;
 NSData *imageData;
 int queryNumber;
 PFFile *imageFile;
+float uploadProgress = 0.0;
+float researchProgress = 0.0;
+MBProgressHUD *uploadingHUD;
+MBProgressHUD *researchingHUD;
+int originalImageX;
+int originalImageY;
+int originalImageWidth;
+int originalImageHeight;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    originalImageX = self.exampleImages.frame.origin.x;
+    originalImageY = self.exampleImages.frame.origin.y;
+    originalImageWidth = self.exampleImages.frame.size.width;
+    originalImageHeight = self.exampleImages.frame.size.height;
     
     float cornerRadius = 10.0;
     
@@ -55,8 +68,19 @@ PFFile *imageFile;
                             [NSNumber numberWithFloat:1.0f],
                             nil];
     [self.sellButton.layer addSublayer:shineLayer];
+
+    CGImageRef imageRef = [[UIImage imageNamed:@"StanfordFootballExample.JPG"] CGImage];
+    UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDown];
     
-    self.exampleImages.image = [UIImage imageNamed:@"StanfordFootballExample.JPG"];
+    self.exampleImages.image = rotatedImage;
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{    
+    [uploadingHUD removeFromSuperview];
+    [researchingHUD removeFromSuperview];
+    uploadProgress = 0.0;
+    researchProgress = 0.0;
 }
 
 - (void)didReceiveMemoryWarning
@@ -65,7 +89,7 @@ PFFile *imageFile;
     // Dispose of any resources that can be recreated.
 }
 
--(void)takePhoto
+-(IBAction)takePhoto
 {
     UIImagePickerController *imagePickerController = [[UIImagePickerController alloc] init];
 #if TARGET_IPHONE_SIMULATOR
@@ -75,6 +99,9 @@ PFFile *imageFile;
 #endif
     imagePickerController.editing = YES; //SEE IF THIS IS NECESSARY
     imagePickerController.delegate = (id)self;
+    
+    uploadProgress = 0.0;
+    researchProgress = 0.0;
     
     [self presentModalViewController:imagePickerController animated:YES];
 }
@@ -90,11 +117,93 @@ PFFile *imageFile;
     
     [self uploadNotification];
     [self uploadImage:imageData];
-    HUD = [[MBProgressHUD alloc] initWithView:self.view];
-    HUD.labelText = @"Uploading";
-    HUD.mode = MBProgressHUDModeDeterminate;
-    [self.view addSubview:HUD];
-    [HUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
+    uploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
+    uploadingHUD.labelText = @"Uploading";
+    uploadingHUD.mode = MBProgressHUDModeDeterminate;
+    [self.view addSubview:uploadingHUD];
+    [uploadingHUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
+}
+
+#pragma mark - Upload image to Parse
+- (void)uploadImage:(NSData *)imageData
+{
+    int newWidth = self.view.frame.size.width - 40;
+    int newHeight = self.view.frame.size.height - 40;
+    
+    self.exampleImages.frame = CGRectMake(
+                                 20,
+                                 20, newWidth, newHeight);
+    
+    self.exampleImages.image = [UIImage imageWithData:imageData];
+    
+    imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
+    
+    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+        if (!error) {
+            
+            // Create a PFObject around a PFFile and associate it with the current user
+            self.userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
+            [self.userPhoto setObject:imageFile forKey:@"imageFile"];
+            
+            // Set the access control list to current user for security purposes
+            self.userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
+            
+            PFUser *user = [PFUser currentUser];
+            [self.userPhoto setObject:user forKey:@"user"];
+            
+            [self.userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
+                if (!error) {
+                    uploadingHUD.labelText = @"Success!";
+                    [uploadingHUD removeFromSuperview];
+                    researchingHUD = [[MBProgressHUD alloc] initWithView:self.view];
+                    researchProgress = 0.0;
+                    researchingHUD.labelText = @"Evaluating";
+                    researchingHUD.mode = MBProgressHUDModeDeterminate;
+                    [self.view addSubview:researchingHUD];
+                    [researchingHUD showWhileExecuting:@selector(researching) onTarget:self withObject:nil animated:YES];
+                    [self priceThis];
+                }
+                else{
+                    // Log details of the failure
+                    NSLog(@"Error saving photo: %@ %@", error, [error userInfo]);
+                }
+            }];
+        }
+        else{
+            [HUD hide:YES]; //BRING THIS BACK LATER
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        }
+    } progressBlock:^(int percentDone) {
+        // Update your progress spinner here. percentDone will be between 0 and 100.
+        HUD.progress = (float)percentDone/100; //BRING THIS BACK LATER
+    }];
+}
+
+- (void)uploading
+{
+    while (uploadProgress < 1.0) {
+        uploadProgress += 0.0075;
+        uploadingHUD.progress = uploadProgress;
+        usleep(50000);
+    }
+}
+
+- (void)researching
+{
+    while (researchProgress < 1.0) {
+        researchProgress += 0.0015;
+        researchingHUD.progress = researchProgress;
+        if (researchProgress < 0.10) {
+            [researchingHUD setLabelText:@"Evaluating"];
+        } else if (researchProgress < 0.35) {
+            [researchingHUD setLabelText:@"Authenticating"];
+        } else if (researchProgress < 0.75) {
+            [researchingHUD setLabelText:@"Researching"];
+        } else if (researchProgress > 0.75) {
+            [researchingHUD setLabelText:@"Pricing"];
+        }
+        usleep(50000);
+    }
 }
 
 -(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -118,7 +227,7 @@ PFFile *imageFile;
             }];
             [self performSegueWithIdentifier: @"SoldSegue" sender: self];
         } else if (alertView.tag == 30) {
-            [self.navigationController popToRootViewControllerAnimated:YES];
+            [self takePhoto];
         } else if (alertView.tag == 40) {
             [HUD removeFromSuperview];
             [self takePhoto];
@@ -137,30 +246,19 @@ PFFile *imageFile;
     }
 }
 
-- (void)uploading
-{
-    float progress = 0.0;
-    while (progress < 1.0) {
-        progress += 0.0015;
-        HUD.progress = progress;
-        if (progress > 0.05) {
-            [HUD setLabelText:@"Evaluating"];
-        }
-        if (progress > 0.20) {
-            [HUD setLabelText:@"Authenticating"];
-        }
-        if (progress > 0.35) {
-            [HUD setLabelText:@"Researching"];
-        }
-        if (progress > 0.75) {
-            [HUD setLabelText:@"Pricing"];
-        }
-        usleep(50000);
-    }
-}
-
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
+    self.exampleImages.frame = CGRectMake(
+                                          originalImageX,
+                                          originalImageY,
+                                          originalImageWidth,
+                                          originalImageHeight);
+    
+    CGImageRef imageRef = [[UIImage imageNamed:@"StanfordFootballExample.JPG"] CGImage];
+    UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDown];
+    
+    self.exampleImages.image = rotatedImage;
+    
     if ([segue.identifier isEqualToString:@"SoldSegue"]){
         SoldViewController *controller = segue.destinationViewController;
         PFObject *passedPhoto = self.userPhoto;
@@ -170,50 +268,7 @@ PFFile *imageFile;
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
-    [picker dismissModalViewControllerAnimated:NO];
-}
-
-#pragma mark - Upload image to Parse
-- (void)uploadImage:(NSData *)imageData
-{
-    imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
-    
-    // Save PFFile
-    [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-        if (!error) {
-            
-            // Create a PFObject around a PFFile and associate it with the current user
-            self.userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
-            [self.userPhoto setObject:imageFile forKey:@"imageFile"];
-            
-            // Set the access control list to current user for security purposes
-            self.userPhoto.ACL = [PFACL ACLWithUser:[PFUser currentUser]];
-            
-            PFUser *user = [PFUser currentUser];
-            [self.userPhoto setObject:user forKey:@"user"];
-            
-            [self.userPhoto saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
-                if (!error) {
-                    NSLog(@"Success, photo uploaded!");
-                    //[self refresh:nil]; //OLD
-                    NSLog(@"ObjectID: %@", userPhoto.objectId);
-                    [self priceThis];
-                }
-                else{
-                    // Log details of the failure
-                    NSLog(@"Error saving photo: %@ %@", error, [error userInfo]);
-                }
-            }];
-        }
-        else{
-            [HUD hide:YES]; //BRING THIS BACK LATER
-            // Log details of the failure
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
-        }
-    } progressBlock:^(int percentDone) {
-        // Update your progress spinner here. percentDone will be between 0 and 100.
-        HUD.progress = (float)percentDone/100; //BRING THIS BACK LATER
-    }];
+    [picker dismissModalViewControllerAnimated:YES];
 }
 
 // PRICE RETRIEVAL LOGIC
@@ -240,7 +295,6 @@ PFFile *imageFile;
     NSLog(@"The query # is: %d", queryNumber);
     if (queryNumber>3) {
         PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
-        //this is from the .h ... @property (nonatomic, strong)PFObject *userPhoto;
         NSLog(@"Looking for ... %@", self.userPhoto.objectId);
         [query getObjectInBackgroundWithId:self.userPhoto.objectId block:^(PFObject *retrievedPhoto, NSError *error) {
             if (!error) {
@@ -276,6 +330,8 @@ PFFile *imageFile;
 
 -(void) offerPriceToUser:(NSString *)price
 {
+    [HUD removeFromSuperview];
+    
     if ([price isEqualToString:@"?"]) {
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: @"Couldn't Authenticate Tickets"
