@@ -84,28 +84,6 @@
      */
 }
 
-- (void)navigationController:(UINavigationController *)navigationController
-      willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    for (UINavigationItem *item in navigationController.navigationBar.subviews) {
-        if ([[item title] compare:@"Cancel"] == 0) {
-            UIButton *button = (UIButton *)item;
-            [button setHidden:YES];
-        }
-    }
-}
-
-- (void)navigationController:(UINavigationController *)navigationController
-       didShowViewController:(UIViewController *)viewController animated:(BOOL)animated
-{
-    for (UINavigationItem *item in navigationController.navigationBar.subviews) {
-        if ([[item title] compare:@"Cancel"] == 0) {
-            UIButton *button = (UIButton *)item;
-            [button setHidden:YES];
-        }
-    }
-}
-
 + (AppDelegate *)appDelegate
 {
     return (AppDelegate*)[[UIApplication sharedApplication] delegate];

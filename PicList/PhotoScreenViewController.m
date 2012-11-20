@@ -9,6 +9,7 @@
 #import "PhotoScreenViewController.h"
 #import "SoldViewController.h"
 #import <Parse/Parse.h>
+#import "MBProgressHUD.h"
 
 @interface PhotoScreenViewController ()
 
@@ -68,23 +69,22 @@ PFFile *imageFile;
     
     imageData = UIImageJPEGRepresentation(image, 0.05f);
     
-    UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle: @"Sell Tickets"
-                          message: @"Submit photo or retake?"
-                          delegate: self
-                          cancelButtonTitle:@"Submit"
-                          otherButtonTitles:@"Retake",nil];
-    [alert setTag:10];
-    [alert show];
+    [self uploadNotification];
+    [self uploadImage:imageData];
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    HUD.labelText = @"Uploading";
+    HUD.mode = MBProgressHUDModeDeterminate;
+    [self.view addSubview:HUD];
+    [HUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
 }
 
--(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex 
+-(void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
         if (alertView.tag == 10) {
-            [self uploadNotification];
-            [self uploadImage:imageData];
+
         } else if (alertView.tag == 20) {
+            [HUD removeFromSuperview];
             PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
             NSLog(@"Looking for ... %@", self.userPhoto.objectId);
             [query getObjectInBackgroundWithId:self.userPhoto.objectId block:^(PFObject *retrievedPhoto, NSError *error) {
@@ -98,14 +98,45 @@ PFFile *imageFile;
                     }
             }];
             [self performSegueWithIdentifier: @"SoldSegue" sender: self];
+        } else if (alertView.tag == 30) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else if (alertView.tag == 40) {
+            [HUD removeFromSuperview];
+            [self takePhoto];
         }
     }
     if (buttonIndex == 1) {
         if (alertView.tag == 10) {
-            [self takePhoto];
+//            [self takePhoto];
         } else if (alertView.tag == 20) {
+            [HUD removeFromSuperview];
+            [self takePhoto];
+        } else if (alertView.tag == 40) {
+            [HUD removeFromSuperview];
             [self takePhoto];
         }
+    }
+}
+
+- (void)uploading
+{
+    float progress = 0.0;
+    while (progress < 1.0) {
+        progress += 0.0015;
+        HUD.progress = progress;
+        if (progress > 0.05) {
+            [HUD setLabelText:@"Evaluating"];
+        }
+        if (progress > 0.20) {
+            [HUD setLabelText:@"Authenticating"];
+        }
+        if (progress > 0.35) {
+            [HUD setLabelText:@"Researching"];
+        }
+        if (progress > 0.75) {
+            [HUD setLabelText:@"Pricing"];
+        }
+        usleep(50000);
     }
 }
 
@@ -128,12 +159,9 @@ PFFile *imageFile;
 {
     imageFile = [PFFile fileWithName:@"Image.jpg" data:imageData];
     
-    //HUD creation here (see example for code)
-    
     // Save PFFile
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            // Hide old HUD, show completed HUD (see example for code)
             
             // Create a PFObject around a PFFile and associate it with the current user
             self.userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
@@ -149,7 +177,6 @@ PFFile *imageFile;
                 if (!error) {
                     NSLog(@"Success, photo uploaded!");
                     //[self refresh:nil]; //OLD
-                    //START PROCESS OF VERIFYING/PRICING/RESPONDING
                     NSLog(@"ObjectID: %@", userPhoto.objectId);
                     [self priceThis];
                 }
@@ -214,6 +241,14 @@ PFFile *imageFile;
     if (queryNumber>16) {
         [t invalidate];
         NSLog(@"Reached %d queries, timer stopped!", queryNumber);
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Couldn't Price Tickets"
+                              message: @""
+                              delegate: self
+                              cancelButtonTitle:@"Retake"
+                              otherButtonTitles:nil];
+        [alert setTag:30];
+        [alert show];
     }
 }
 
@@ -222,17 +257,28 @@ PFFile *imageFile;
 
 -(void) offerPriceToUser:(NSString *)price
 {
-    NSString *offer = @"The price was: $";
-    offer = [offer stringByAppendingString:price];
-    
-    UIAlertView *alert = [[UIAlertView alloc]
-                      initWithTitle: @"Sell Tickets"
+    if ([price isEqualToString:@"?"]) {
+        UIAlertView *alert = [[UIAlertView alloc]
+                              initWithTitle: @"Couldn't Authenticate Tickets"
+                              message: @"Please ensure the section, row and seat numbers as well as the barcode are in focus."
+                              delegate: self
+                              cancelButtonTitle:@"Retake"
+                              otherButtonTitles:nil];
+        [alert setTag:40];
+        [alert show];
+    } else {
+        NSString *offer = @"The price was: $";
+        offer = [offer stringByAppendingString:price];
+        
+        UIAlertView *alert = [[UIAlertView alloc]
+                      initWithTitle: @"Sell Tickets?"
                       message: offer
                       delegate: self
-                      cancelButtonTitle:@"Sell!"
+                      cancelButtonTitle:@"Yes, Sell!"
                       otherButtonTitles:@"Cancel",nil];
-    [alert setTag:20];
-    [alert show];
+        [alert setTag:20];
+        [alert show];
+    }
 }
 
 // TWILIO STARTS

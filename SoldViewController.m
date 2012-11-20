@@ -11,9 +11,10 @@
 #import "AppDelegate.h"
 #import <Parse/Parse.h>
 #import "User.h"
+#import <Quartzcore/Quartzcore.h>
 
 @interface SoldViewController ()
-
+- (IBAction)emailConfirmed;
 @end
 
 @implementation SoldViewController
@@ -23,6 +24,8 @@
 @synthesize orderNumberLabel;
 @synthesize paypalEmailField;
 @synthesize activeField;
+
+@synthesize submitButton;
 
 User *localUser;
 
@@ -44,8 +47,36 @@ User *localUser;
     
     self.paypalEmailField.delegate = self;
     
-    //QUESTION #1
+    NSString *email = localUser.paypalEmail;
+    self.paypalEmailField.text = email;
+    
     self.orderNumberLabel.text = self.userPhoto.objectId;
+    
+    float cornerRadius = 10.0;
+    
+    [self.submitButton.layer setBorderWidth:2.0];
+    [self.submitButton.layer setCornerRadius:cornerRadius];
+    [self.submitButton.layer setBorderColor:[[UIColor colorWithWhite:0.3 alpha:0.7] CGColor]];
+    
+    //http://undefinedvalue.com/2010/02/27/shiny-iphone-buttons-without-photoshop
+    CAGradientLayer *shineLayer = [CAGradientLayer layer];
+    shineLayer.frame = self.submitButton.bounds;
+    shineLayer.cornerRadius = cornerRadius;
+    shineLayer.colors = [NSArray arrayWithObjects:
+                         (id)[UIColor colorWithWhite:1.0f alpha:0.4f].CGColor,
+                         (id)[UIColor colorWithWhite:1.0f alpha:0.2f].CGColor,
+                         (id)[UIColor colorWithWhite:0.75f alpha:0.2f].CGColor,
+                         (id)[UIColor colorWithWhite:0.4f alpha:0.2f].CGColor,
+                         (id)[UIColor colorWithWhite:1.0f alpha:0.4f].CGColor,
+                         nil];
+    shineLayer.locations = [NSArray arrayWithObjects:
+                            [NSNumber numberWithFloat:0.0f],
+                            [NSNumber numberWithFloat:0.5f],
+                            [NSNumber numberWithFloat:0.5f],
+                            [NSNumber numberWithFloat:0.8f],
+                            [NSNumber numberWithFloat:1.0f],
+                            nil];
+    [self.submitButton.layer addSublayer:shineLayer];
 }
 
 - (void)didReceiveMemoryWarning
@@ -99,8 +130,20 @@ User *localUser;
     if (buttonIndex == 0) {
         if (alertView.tag == 10) {
             [self.navigationController popToRootViewControllerAnimated:YES];
+            
         }
     }
+}
+
+- (IBAction)emailConfirmed
+{
+    //NSDictionary *new = [[NSDictionary alloc] init];
+//    [PFCloud callFunctionInBackground:@"sendReceipt" withParameters:(NSDictionary *new) block:^(id object, NSError *error) {
+//        if(!error) {
+//            NSLog(@"Receipt Sent");
+//        }
+//    }];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

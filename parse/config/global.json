@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "TickPic2": {
+            "applicationId": "34jkXHSyb1j5lW4isKEYSl4esKjBfd3doc8jZqbm", 
+            "masterKey": "r6om7r5dSgn1TuVmB79jyKFc0RPePJ51JxYThHzk"
+        }, 
+        "_default": {
+            "link": "TickPic2"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.1.11"
+    }
+}

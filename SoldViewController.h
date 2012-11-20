@@ -17,4 +17,8 @@
 @property (nonatomic, strong) IBOutlet UITextField *paypalEmailField;
 @property (nonatomic, strong) UITextField *activeField;
 
+@property (nonatomic, strong) IBOutlet UIButton *submitButton;
+
+- (IBAction)emailConfirmed;
+
 @end

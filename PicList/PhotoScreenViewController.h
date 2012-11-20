@@ -14,7 +14,6 @@
 @interface PhotoScreenViewController : UIViewController //<UIImagePickerControllerDelegate, PF_MBProgressHUDDelegate>
 {
     IBOutlet UIImageView* photo;
-    
     MBProgressHUD *HUD;
     MBProgressHUD *refreshHUD;
 }
