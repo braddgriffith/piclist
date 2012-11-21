@@ -19,6 +19,7 @@
 		E66F2341164AEA2E0086E406 /* MainStoryboard_iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66F233F164AEA2E0086E406 /* MainStoryboard_iPhone.storyboard */; };
 		E66F2344164AEA2E0086E406 /* MainStoryboard_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E66F2342164AEA2E0086E406 /* MainStoryboard_iPad.storyboard */; };
 		E67358DC165AE07D00663CB5 /* StanfordFootballExample.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E67358DB165AE07D00663CB5 /* StanfordFootballExample.JPG */; };
+		E682EAFD165CA70E00D67134 /* GiantsExample.JPG in Resources */ = {isa = PBXBuildFile; fileRef = E682EAFC165CA70E00D67134 /* GiantsExample.JPG */; };
 		E6D5A29C164B1B5E00FEED3E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A29B164B1B5E00FEED3E /* AudioToolbox.framework */; };
 		E6D5A29E164B1B6800FEED3E /* Accounts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A29D164B1B6800FEED3E /* Accounts.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		E6D5A2A0164B1B6F00FEED3E /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6D5A29F164B1B6F00FEED3E /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -57,6 +58,7 @@
 		E66F2343164AEA2E0086E406 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = en; path = en.lproj/MainStoryboard_iPad.storyboard; sourceTree = "<group>"; };
 		E66F2345164AEA2E0086E406 /* WelcomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WelcomeViewController.h; sourceTree = "<group>"; };
 		E67358DB165AE07D00663CB5 /* StanfordFootballExample.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StanfordFootballExample.JPG; sourceTree = "<group>"; };
+		E682EAFC165CA70E00D67134 /* GiantsExample.JPG */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = GiantsExample.JPG; sourceTree = "<group>"; };
 		E6D5A280164B18AC00FEED3E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		E6D5A29B164B1B5E00FEED3E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		E6D5A29D164B1B6800FEED3E /* Accounts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
@@ -175,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				E67358DB165AE07D00663CB5 /* StanfordFootballExample.JPG */,
+				E682EAFC165CA70E00D67134 /* GiantsExample.JPG */,
 				E66F232F164AEA2E0086E406 /* PicList-Info.plist */,
 				E66F2330164AEA2E0086E406 /* InfoPlist.strings */,
 				E66F2333164AEA2E0086E406 /* main.m */,
@@ -244,6 +247,7 @@
 				E66F2341164AEA2E0086E406 /* MainStoryboard_iPhone.storyboard in Resources */,
 				E66F2344164AEA2E0086E406 /* MainStoryboard_iPad.storyboard in Resources */,
 				E67358DC165AE07D00663CB5 /* StanfordFootballExample.JPG in Resources */,
+				E682EAFD165CA70E00D67134 /* GiantsExample.JPG in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

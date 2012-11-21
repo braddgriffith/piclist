@@ -69,8 +69,8 @@ int originalImageHeight;
                             nil];
     [self.sellButton.layer addSublayer:shineLayer];
 
-    CGImageRef imageRef = [[UIImage imageNamed:@"StanfordFootballExample.JPG"] CGImage];
-    UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDown];
+    CGImageRef imageRef = [[UIImage imageNamed:@"GiantsExample.JPG"] CGImage];
+    UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight];
     
     self.exampleImages.image = rotatedImage;
 }
@@ -119,7 +119,7 @@ int originalImageHeight;
     [self uploadImage:imageData];
     uploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
     uploadingHUD.labelText = @"Uploading";
-    uploadingHUD.mode = MBProgressHUDModeDeterminate;
+    uploadingHUD.mode = MBProgressHUDModeIndeterminate;
     [self.view addSubview:uploadingHUD];
     [uploadingHUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
 }
@@ -182,7 +182,7 @@ int originalImageHeight;
 - (void)uploading
 {
     while (uploadProgress < 1.0) {
-        uploadProgress += 0.0075;
+        uploadProgress += 0.0015;
         uploadingHUD.progress = uploadProgress;
         usleep(50000);
     }
@@ -254,8 +254,8 @@ int originalImageHeight;
                                           originalImageWidth,
                                           originalImageHeight);
     
-    CGImageRef imageRef = [[UIImage imageNamed:@"StanfordFootballExample.JPG"] CGImage];
-    UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationDown];
+    CGImageRef imageRef = [[UIImage imageNamed:@"GiantsExample.JPG"] CGImage];
+    UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight];
     
     self.exampleImages.image = rotatedImage;
     
