@@ -119,7 +119,7 @@ int originalImageHeight;
     [self uploadImage:imageData];
     uploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
     uploadingHUD.labelText = @"Uploading";
-    uploadingHUD.mode = MBProgressHUDModeIndeterminate;
+    uploadingHUD.mode = MBProgressHUDModeDeterminate;
     [self.view addSubview:uploadingHUD];
     [uploadingHUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
 }
@@ -182,7 +182,7 @@ int originalImageHeight;
 - (void)uploading
 {
     while (uploadProgress < 1.0) {
-        uploadProgress += 0.0015;
+        uploadProgress += 0.007;
         uploadingHUD.progress = uploadProgress;
         usleep(50000);
     }
@@ -311,7 +311,7 @@ int originalImageHeight;
             }
         }];
     }
-    if (queryNumber>16) {
+    if (queryNumber>13) {
         [t invalidate];
         NSLog(@"Reached %d queries, timer stopped!", queryNumber);
         UIAlertView *alert = [[UIAlertView alloc]
