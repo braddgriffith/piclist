@@ -248,11 +248,7 @@ int originalImageHeight;
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
-    self.exampleImages.frame = CGRectMake(
-                                          originalImageX,
-                                          originalImageY,
-                                          originalImageWidth,
-                                          originalImageHeight);
+    [self reloadOriginalImageSize];
     
     CGImageRef imageRef = [[UIImage imageNamed:@"GiantsExample.JPG"] CGImage];
     UIImage *rotatedImage = [UIImage imageWithCGImage:imageRef scale:1.0 orientation:UIImageOrientationRight];
@@ -268,6 +264,8 @@ int originalImageHeight;
 
 -(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {
+    [self reloadOriginalImageSize];
+    
     [picker dismissModalViewControllerAnimated:YES];
 }
 
@@ -392,7 +390,16 @@ int originalImageHeight;
   NSLog(@"Request sent. %@", receivedString);
   }
   */
-}   
+}
+
+- (void)reloadOriginalImageSize
+{
+    self.exampleImages.frame = CGRectMake(
+                                          originalImageX,
+                                          originalImageY,
+                                          originalImageWidth,
+                                          originalImageHeight);
+}
 
 - (void)viewDidUnload
 {

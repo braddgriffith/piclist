@@ -108,7 +108,7 @@ User *localUser;
                           message:@"We're processing your Paypal payment."
                           delegate:self
                           cancelButtonTitle:@"Sell Again"
-                          otherButtonTitles:nil];
+                          otherButtonTitles:@"Done", nil];
     alert.alertViewStyle = UIAlertViewStyleDefault;
     alert.tag = 10;
     [alert show];
