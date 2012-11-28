@@ -47,7 +47,7 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="StanfordFootballExample.JPG" id="5lZ-jz-eEx">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" image="GiantsExample.JPG" id="5lZ-jz-eEx">
                                 <rect key="frame" x="20" y="329" width="280" height="183"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             </imageView>
@@ -72,6 +72,7 @@
                     <navigationItem key="navigationItem" id="szJ-fv-h4L"/>
                     <connections>
                         <outlet property="exampleImages" destination="5lZ-jz-eEx" id="fyE-pO-vcM"/>
+                        <outlet property="infoButton" destination="Uga-1C-lg0" id="nV0-vO-P42"/>
                         <outlet property="sellButton" destination="XXS-RX-jBW" id="Zy2-tf-cpz"/>
                         <segue destination="M49-ex-qLt" kind="modal" identifier="SoldSegue" id="IV2-Tw-LAW"/>
                     </connections>
@@ -93,19 +94,26 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qmc-93-xTA">
-                                        <rect key="frame" x="20" y="20" width="265" height="420"/>
+                                        <rect key="frame" x="20" y="20" width="280" height="477"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <mutableString key="text">To use Flash...
 
-First hit the Sell My Tickets button. Then snap a photo that includes your section, seat and row number as well as the barcode. Barcodes are usually between 8-16 letters and numbers. The barcode allows us to authenticate your tickets to ensure they are active (unused).
+1. Hit the Sell My Tickets button. 
+2. Snap a photo including your barcode (8-16 numbers and letters), section, seat and row number.
+3. Image recognition tech captures the information, researches past transactions, then quotes a price. 
+4. Accept or reject that price. 
+5. If accepted, we'll ask you for your Paypal email address.
 
-Our image recognition technology will then capture the information and compare these tickets to those in past transactions. It will then quote you a price that you can accept or reject in one click. If you accept that price, we'll ask you for your Paypal email address so we can pay you.
+It's that fast.
 
-It's that simple.</mutableString>
+Please Note! Flash works for major U.S. sporting events and concerts. It occasionally requires human intervention, and is available between 9am and 9pm PST. Thanks! See below for a perfect photo...</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="LcK-3P-FbH">
+                                        <rect key="frame" x="20" y="452" width="280" height="36"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
                                 </subviews>
                                 <connections>
                                     <outlet property="delegate" destination="KJA-cO-4jw" id="gdl-1A-P88"/>
@@ -123,6 +131,7 @@ It's that simple.</mutableString>
                     </navigationItem>
                     <connections>
                         <outlet property="doneButton" destination="aCj-8c-SKS" id="Ogo-mV-7ju"/>
+                        <outlet property="exampleImageView" destination="LcK-3P-FbH" id="gKH-Af-Xuc"/>
                         <outlet property="instructions" destination="qmc-93-xTA" id="951-GQ-d4G"/>
                         <outlet property="scrollView" destination="tUg-bv-u32" id="b1h-xZ-Lb3"/>
                     </connections>
@@ -146,13 +155,13 @@ It's that simple.</mutableString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your order number is:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="upT-3e-g4f">
-                                <rect key="frame" x="20" y="138" width="194" height="21"/>
+                                <rect key="frame" x="20" y="132" width="194" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="OrderNumberLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2uX-Jk-UVN">
-                                <rect key="frame" x="188" y="138" width="146" height="21"/>
+                                <rect key="frame" x="188" y="132" width="146" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -229,37 +238,8 @@ It's that simple.</mutableString>
         </scene>
     </scenes>
     <resources>
-        <image name="StanfordFootballExample.JPG" width="2592" height="1936"/>
+        <image name="GiantsExample.JPG" width="2448" height="3264"/>
     </resources>
-    <classes>
-        <class className="InfoViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/InfoViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="donePressed"/>
-                <relationship kind="outlet" name="doneButton" candidateClass="UIBarButtonItem"/>
-                <relationship kind="outlet" name="instructions" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="scrollView" candidateClass="UIScrollView"/>
-            </relationships>
-        </class>
-        <class className="SoldViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/SoldViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="emailConfirmed"/>
-                <relationship kind="outlet" name="orderNumberLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="paypalEmailField" candidateClass="UITextField"/>
-                <relationship kind="outlet" name="submitButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-        <class className="WelcomeViewController" superclassName="UIViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/WelcomeViewController.h"/>
-            <relationships>
-                <relationship kind="action" name="takePhoto"/>
-                <relationship kind="outlet" name="exampleImages" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="sellButton" candidateClass="UIButton"/>
-            </relationships>
-        </class>
-    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>

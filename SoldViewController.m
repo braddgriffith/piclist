@@ -129,6 +129,10 @@ User *localUser;
         if (alertView.tag == 10) {
             [self dismissModalViewControllerAnimated:YES];
         }
+    } else if (buttonIndex == 1) {
+        if (alertView.tag == 10) {
+            [self dismissModalViewControllerAnimated:YES];
+        }
     }
 }
 

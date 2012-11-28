@@ -21,6 +21,7 @@
 @property (nonatomic, strong) PFObject *userPhoto;
 @property (nonatomic, strong) IBOutlet UIButton *sellButton;
 @property (strong, nonatomic) IBOutlet UIImageView *exampleImages;
+@property (nonatomic, strong) IBOutlet UIButton *infoButton;
 
 - (IBAction)takePhoto;
 

@@ -13,6 +13,7 @@
 @property (nonatomic, strong) IBOutlet UIBarButtonItem *doneButton;
 @property (nonatomic, strong) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) IBOutlet UILabel *instructions;
+@property (nonatomic, strong) IBOutlet UIImageView *exampleImageView;
 
 - (IBAction)donePressed;
 

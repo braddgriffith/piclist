@@ -20,6 +20,7 @@
 @synthesize sellButton;
 @synthesize exampleImages;
 @synthesize userPhoto;
+@synthesize infoButton;
 
 int i = 0;
 NSData *imageData;
@@ -33,10 +34,40 @@ int originalImageX;
 int originalImageY;
 int originalImageWidth;
 int originalImageHeight;
+double uploadStep = 0.007;
+double researchStep = 0.0015;
+int prepQueries = 3;
+int serverQueries = 13;
+float queryTime = 3.0f;
+float imageQuality = 0.05f;
+NSString *kToNumber = @"+16198221406";
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    // Get defaults from Parse
+    PFQuery *query = [PFQuery queryWithClassName:@"Defaults"];
+    [query whereKey:@"objectId" equalTo:@"2v45cWF0do"];
+    [query getFirstObjectInBackgroundWithBlock:^(PFObject *defaults, NSError *error) {
+        if (!error) {
+            uploadStep = [[defaults objectForKey:@"UploadStep"] doubleValue];
+            researchStep = [[defaults objectForKey:@"ResearchStep"] doubleValue];
+            prepQueries = [[defaults objectForKey:@"PrepQueries"] intValue];
+            serverQueries = [[defaults objectForKey:@"ServerQueries"] intValue];
+            queryTime = [[defaults objectForKey:@"QueryTime"] floatValue];
+            imageQuality = [[defaults objectForKey:@"ImageQuality"] floatValue];
+            NSLog(@"uploadStep: %f", uploadStep);
+            NSLog(@"researchStep: %f", researchStep);
+            NSLog(@"researchStep: %d", prepQueries);
+            NSLog(@"serverQueries: %d", serverQueries);
+            NSLog(@"queryTime: %f", queryTime);
+            NSLog(@"imageQuality: %f", imageQuality);
+        } else {
+            // Log details of our failure
+            NSLog(@"Error setting Sold tag: %@ %@", error, [error userInfo]);
+        }
+    }];
     
     originalImageX = self.exampleImages.frame.origin.x;
     originalImageY = self.exampleImages.frame.origin.y;
@@ -113,9 +144,9 @@ int originalImageHeight;
     photo.image = image;
     [picker dismissModalViewControllerAnimated:NO];
     
-    imageData = UIImageJPEGRepresentation(image, 0.05f);
+    imageData = UIImageJPEGRepresentation(image, imageQuality);
     
-    [self uploadNotification];
+    //[self uploadNotification];
     [self uploadImage:imageData];
     uploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
     uploadingHUD.labelText = @"Uploading";
@@ -164,7 +195,14 @@ int originalImageHeight;
                     [self priceThis];
                 }
                 else{
-                    // Log details of the failure
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle: @"Couldn't Upload Photo"
+                                          message: @"Upload timed out. Please try again in one minute."
+                                          delegate: self
+                                          cancelButtonTitle:@"Retake"
+                                          otherButtonTitles:nil];
+                    [alert setTag:50];
+                    [alert show];
                     NSLog(@"Error saving photo: %@ %@", error, [error userInfo]);
                 }
             }];
@@ -182,7 +220,7 @@ int originalImageHeight;
 - (void)uploading
 {
     while (uploadProgress < 1.0) {
-        uploadProgress += 0.007;
+        uploadProgress += uploadStep;
         uploadingHUD.progress = uploadProgress;
         usleep(50000);
     }
@@ -191,7 +229,7 @@ int originalImageHeight;
 - (void)researching
 {
     while (researchProgress < 1.0) {
-        researchProgress += 0.0015;
+        researchProgress += researchStep;
         researchingHUD.progress = researchProgress;
         if (researchProgress < 0.10) {
             [researchingHUD setLabelText:@"Evaluating"];
@@ -277,7 +315,7 @@ int originalImageHeight;
     // Then assume check every X seconds until Y seconds total
     queryNumber = 0;
     
-    [NSTimer scheduledTimerWithTimeInterval:3.0
+    [NSTimer scheduledTimerWithTimeInterval:queryTime
                                      target:self
                                    selector:@selector(retrievePrice:)
                                    userInfo:nil
@@ -291,17 +329,40 @@ int originalImageHeight;
 {
     queryNumber++;
     NSLog(@"The query # is: %d", queryNumber);
-    if (queryNumber>3) {
+    
+    if (queryNumber>prepQueries) {
         PFQuery *query = [PFQuery queryWithClassName:@"UserPhoto"];
         NSLog(@"Looking for ... %@", self.userPhoto.objectId);
         [query getObjectInBackgroundWithId:self.userPhoto.objectId block:^(PFObject *retrievedPhoto, NSError *error) {
             if (!error) {
                 // The get request succeeded.
-                NSLog(@"The price was: $%@", [self.userPhoto objectForKey:@"PriceEach"]);
-                if ([retrievedPhoto objectForKey:@"PriceEach"]) {
+                NSString *totalPrice = [retrievedPhoto objectForKey:@"PriceTotal"];
+                NSString *numTickets = [retrievedPhoto objectForKey:@"NumTickets"];
+                NSLog(@"The price was: $%@", totalPrice);
+                if ([numTickets isEqualToString:@"0"] ) {
+                    [t invalidate];
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle: @"Couldn't Read Tickets"
+                                          message: @"Please ensure that the barcode is in focus and the event, date, section, row and seat numbers are visible."
+                                          delegate: self
+                                          cancelButtonTitle:@"Retake"
+                                          otherButtonTitles:nil];
+                    [alert setTag:30];
+                    [alert show];
+                } else if ([totalPrice isEqualToString:@"?"]) {
+                    [t invalidate];
+                    UIAlertView *alert = [[UIAlertView alloc]
+                                          initWithTitle: @"Couldn't Authenticate Tickets"
+                                          message: @"According to our sources, one or more of those tickets may be invalid."
+                                          delegate: self
+                                          cancelButtonTitle:@"Retake"
+                                          otherButtonTitles:nil];
+                    [alert setTag:40];
+                    [alert show];
+                } else if (totalPrice && numTickets) {
                     [t invalidate];
                     NSLog(@"Price retrieved, timer stopped at %d queries!", queryNumber);
-                    [self offerPriceToUser:[retrievedPhoto objectForKey:@"PriceEach"]];
+                    [self offerPriceToUser:totalPrice:numTickets];
                 }
             } else {
                 // Log details of our failure
@@ -309,63 +370,64 @@ int originalImageHeight;
             }
         }];
     }
-    if (queryNumber>13) {
+    if (queryNumber>serverQueries) {
         [t invalidate];
         NSLog(@"Reached %d queries, timer stopped!", queryNumber);
         UIAlertView *alert = [[UIAlertView alloc]
                               initWithTitle: @"Couldn't Price Tickets"
-                              message: @""
+                              message: @"Request timed out. It looks like we couldn't find a market price for those tickets."
                               delegate: self
                               cancelButtonTitle:@"Retake"
                               otherButtonTitles:nil];
         [alert setTag:30];
         [alert show];
+//        [self offerPriceToUser:@"15":@"1"];
     }
 }
 
 
 // OFFER PRICE
 
--(void) offerPriceToUser:(NSString *)price
+-(void) offerPriceToUser:(NSString *)price :(NSString *)numTickets
 {
     [HUD removeFromSuperview];
-    
-    if ([price isEqualToString:@"?"]) {
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Couldn't Authenticate Tickets"
-                              message: @"Please ensure the section, row and seat numbers as well as the barcode are in focus."
-                              delegate: self
-                              cancelButtonTitle:@"Retake"
-                              otherButtonTitles:nil];
-        [alert setTag:40];
-        [alert show];
+
+    NSString *offer = @"After reviewing the data, your Flash offer is $";
+    offer = [offer stringByAppendingString:price];
+    NSString *forThese;
+    NSString *conclusion;
+    if([numTickets isEqualToString:@"1"]) {
+        forThese = @" for this ";
+        conclusion = @" ticket.";
     } else {
-        NSString *offer = @"The price was: $";
-        offer = [offer stringByAppendingString:price];
-        
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Sell Tickets?"
-                              message: offer
-                              delegate: self
-                              cancelButtonTitle:@"Yes, Sell!"
-                              otherButtonTitles:@"Cancel",nil];
-        [alert setTag:20];
-        [alert show];
+        forThese = @" for these ";
+        conclusion = @" tickets.";
     }
+    offer = [offer stringByAppendingString:forThese];
+    offer = [offer stringByAppendingString:numTickets];
+    offer = [offer stringByAppendingString:conclusion];
+
+    UIAlertView *alert = [[UIAlertView alloc]
+                          initWithTitle: @"Get Paid?"
+                          message: offer
+                          delegate: self
+                          cancelButtonTitle:@"Get Paid"
+                          otherButtonTitles:@"Cancel",nil];
+    [alert setTag:20];
+    [alert show];
 }
 
 // TWILIO STARTS
 
 - (void)uploadNotification
-{/*
+{
   NSLog(@"Sending request.");
   
   // Common constants
   NSString *kTwilioSID = @"AC252b94aee1e94cc7bc1fec605b194d6c";
   NSString *kTwilioSecret = @"51b92a4a1ecc1f2ce5bfff2f878e27bd";
   NSString *kFromNumber = @"+18583543381";
-  NSString *kToNumber = @"+16198221406";
-  NSString *kMessage = @"Hi%20there.";
+  NSString *kMessage = @"A user just uploaded a photo%20check it out.";
   
   // Build request
   NSString *urlString = [NSString stringWithFormat:@"https://%@:%@@api.twilio.com/2010-04-01/Accounts/%@/SMS/Messages", kTwilioSID, kTwilioSecret, kTwilioSID];
@@ -384,12 +446,11 @@ int originalImageHeight;
   
   // Handle the received data
   if (error) {
-  NSLog(@"Error: %@", error);
+      NSLog(@"Error: %@", error);
   } else {
-  NSString *receivedString = [[NSString alloc]initWithData:receivedData encoding:NSUTF8StringEncoding];
-  NSLog(@"Request sent. %@", receivedString);
+      NSString *receivedString = [[NSString alloc]initWithData:receivedData encoding:NSUTF8StringEncoding];
+      NSLog(@"Request sent. %@", receivedString);
   }
-  */
 }
 
 - (void)reloadOriginalImageSize
