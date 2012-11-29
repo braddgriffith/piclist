@@ -437,9 +437,9 @@ NSString *kToNumber = @"+16198221406";
 
     UIAlertView *alert = [[UIAlertView alloc]
                           //initWithTitle: @"Get Paid?"
-                          initWithTitle:@"Tickets Identified and Accepted"
+                          initWithTitle:@"Tickets Accepted"
                           //message:offer
-                          message: @"Donate and Earn a Tax Credit. At the end of the year, we'll email you a letter for your tax deduction."
+                          message: @"Press 'Donate' to earn a tax credit for the face value of your tickets. We'll accumulate all of your donations and email you a letter for your deduction."
                           delegate: self
                           //cancelButtonTitle:@"Get Paid"
                           cancelButtonTitle:@"Donate"

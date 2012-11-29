@@ -67,7 +67,7 @@
 		E63DC445166040DA003C76DC /* Default-Portrait@2x~ipad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default-Portrait@2x~ipad.png"; path = "../Default-Portrait@2x~ipad.png"; sourceTree = "<group>"; };
 		E63DC4481662B4E6003C76DC /* InfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoViewController.h; sourceTree = "<group>"; };
 		E63DC4491662B4E6003C76DC /* InfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoViewController.m; sourceTree = "<group>"; };
-		E66F2323164AEA2E0086E406 /* PicList.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PicList.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		E66F2323164AEA2E0086E406 /* Flash.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Flash.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E66F2327164AEA2E0086E406 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		E66F2329164AEA2E0086E406 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		E66F232B164AEA2E0086E406 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -162,7 +162,7 @@
 		E66F2324164AEA2E0086E406 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E66F2323164AEA2E0086E406 /* PicList.app */,
+				E66F2323164AEA2E0086E406 /* Flash.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -252,7 +252,7 @@
 			);
 			name = PicList;
 			productName = PicList;
-			productReference = E66F2323164AEA2E0086E406 /* PicList.app */;
+			productReference = E66F2323164AEA2E0086E406 /* Flash.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -421,7 +421,7 @@
 				GCC_PREFIX_HEADER = "PicList/PicList-Prefix.pch";
 				INFOPLIST_FILE = "PicList/PicList-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Flash;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -437,7 +437,7 @@
 				GCC_PREFIX_HEADER = "PicList/PicList-Prefix.pch";
 				INFOPLIST_FILE = "PicList/PicList-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = Flash;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
