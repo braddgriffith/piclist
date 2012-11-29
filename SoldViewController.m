@@ -50,7 +50,7 @@ User *localUser;
     
     self.orderNumberLabel.text = self.userPhoto.objectId;
     
-    float cornerRadius = 10.0;
+    float cornerRadius = 8.0;
     
     [self.submitButton.layer setBorderWidth:2.0];
     [self.submitButton.layer setCornerRadius:cornerRadius];
@@ -100,14 +100,15 @@ User *localUser;
     NSLog(@"dataElement: %@", dataElement);
     NSLog(@"textfield.tag: %i", self.paypalEmailField.tag);
     
-    //[localUser setEmail:dataElement];
     localUser.paypalEmail = dataElement;
     
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Address Accepted"
-                          message:@"We're processing your Paypal payment."
+                          //message:@"We're processing your Paypal payment."
+                          message:@"We've stored your email address and will reach out to you with your tax deduction."
                           delegate:self
-                          cancelButtonTitle:@"Sell Again"
+                          //cancelButtonTitle:@"Sell Again"
+                          cancelButtonTitle:@"Donate Again"
                           otherButtonTitles:@"Done", nil];
     alert.alertViewStyle = UIAlertViewStyleDefault;
     alert.tag = 10;

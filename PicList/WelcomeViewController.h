@@ -22,6 +22,9 @@
 @property (nonatomic, strong) IBOutlet UIButton *sellButton;
 @property (strong, nonatomic) IBOutlet UIImageView *exampleImages;
 @property (nonatomic, strong) IBOutlet UIButton *infoButton;
+@property (nonatomic, strong) IBOutlet UILabel *titleLine;
+@property (nonatomic, strong) IBOutlet UILabel *lineOne;
+@property (nonatomic, strong) IBOutlet UILabel *lineTwo;
 
 - (IBAction)takePhoto;
 

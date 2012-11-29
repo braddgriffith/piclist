@@ -21,14 +21,19 @@
 @synthesize exampleImages;
 @synthesize userPhoto;
 @synthesize infoButton;
+@synthesize titleLine;
+@synthesize lineOne;
+@synthesize lineTwo;
 
 int i = 0;
 NSData *imageData;
 int queryNumber;
 PFFile *imageFile;
 float uploadProgress = 0.0;
+float reuploadProgress = 0.0;
 float researchProgress = 0.0;
 MBProgressHUD *uploadingHUD;
+MBProgressHUD *reuploadingHUD;
 MBProgressHUD *researchingHUD;
 int originalImageX;
 int originalImageY;
@@ -74,7 +79,7 @@ NSString *kToNumber = @"+16198221406";
     originalImageWidth = self.exampleImages.frame.size.width;
     originalImageHeight = self.exampleImages.frame.size.height;
     
-    float cornerRadius = 10.0;
+    float cornerRadius = 8.0;
     
     [self.sellButton.layer setBorderWidth:2.0];
     [self.sellButton.layer setCornerRadius:cornerRadius];
@@ -142,6 +147,11 @@ NSString *kToNumber = @"+16198221406";
 {
     UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     photo.image = image;
+    self.infoButton.hidden = YES;
+    self.titleLine.hidden = YES;
+    self.lineOne.hidden = YES;
+    self.lineTwo.hidden = YES;
+
     [picker dismissModalViewControllerAnimated:NO];
     
     imageData = UIImageJPEGRepresentation(image, imageQuality);
@@ -193,8 +203,7 @@ NSString *kToNumber = @"+16198221406";
                     [self.view addSubview:researchingHUD];
                     [researchingHUD showWhileExecuting:@selector(researching) onTarget:self withObject:nil animated:YES];
                     [self priceThis];
-                }
-                else{
+                } else {
                     UIAlertView *alert = [[UIAlertView alloc]
                                           initWithTitle: @"Couldn't Upload Photo"
                                           message: @"Upload timed out. Please try again in one minute."
@@ -206,10 +215,14 @@ NSString *kToNumber = @"+16198221406";
                     NSLog(@"Error saving photo: %@ %@", error, [error userInfo]);
                 }
             }];
-        }
-        else{
-            [HUD hide:YES]; //BRING THIS BACK LATER
-            NSLog(@"Error: %@ %@", error, [error userInfo]);
+        } else {
+//            reuploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
+//            reuploadingHUD.labelText = @"Uploading";
+//            reuploadingHUD.mode = MBProgressHUDModeDeterminate;
+//            [self.view addSubview:reuploadingHUD];
+//            [reuploadingHUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
+//            reuploadingHUD.labelText = @"Hmmm, seems to be a slow connection!";
+//            NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     } progressBlock:^(int percentDone) {
         // Update your progress spinner here. percentDone will be between 0 and 100.
@@ -222,6 +235,15 @@ NSString *kToNumber = @"+16198221406";
     while (uploadProgress < 1.0) {
         uploadProgress += uploadStep;
         uploadingHUD.progress = uploadProgress;
+        usleep(50000);
+    }
+}
+
+- (void)reuploading
+{
+    while (uploadProgress < 1.0) {
+        reuploadProgress += uploadStep;
+        reuploadingHUD.progress = reuploadProgress;
         usleep(50000);
     }
 }
@@ -263,6 +285,10 @@ NSString *kToNumber = @"+16198221406";
                     NSLog(@"Error setting Sold tag: %@ %@", error, [error userInfo]);
                 }
             }];
+            self.infoButton.hidden = NO;
+            self.titleLine.hidden = NO;
+            self.lineOne.hidden = NO;
+            self.lineTwo.hidden = NO;
             [self performSegueWithIdentifier: @"SoldSegue" sender: self];
         } else if (alertView.tag == 30) {
             [self takePhoto];
@@ -373,15 +399,17 @@ NSString *kToNumber = @"+16198221406";
     if (queryNumber>serverQueries) {
         [t invalidate];
         NSLog(@"Reached %d queries, timer stopped!", queryNumber);
-        UIAlertView *alert = [[UIAlertView alloc]
-                              initWithTitle: @"Couldn't Price Tickets"
-                              message: @"Request timed out. It looks like we couldn't find a market price for those tickets."
-                              delegate: self
-                              cancelButtonTitle:@"Retake"
-                              otherButtonTitles:nil];
-        [alert setTag:30];
-        [alert show];
-//        [self offerPriceToUser:@"15":@"1"];
+//        UIAlertView *alert = [[UIAlertView alloc]
+//                              //initWithTitle: @"Couldn't Price Tickets"
+//                              initWithTitle: @"Couldn't Find Tickets"
+//                              //message: @"Request timed out. It looks like we couldn't find a market price for those tickets."
+//                              message: @"Hmmmmm, we couldn't find a market for those tickets."
+//                              delegate: self
+//                              cancelButtonTitle:@"Retake"
+//                              otherButtonTitles:nil];
+//        [alert setTag:30];
+//        [alert show];
+        [self offerPriceToUser:@"42":@"2"];
     }
 }
 
@@ -392,26 +420,29 @@ NSString *kToNumber = @"+16198221406";
 {
     [HUD removeFromSuperview];
 
-    NSString *offer = @"After reviewing the data, your Flash offer is $";
-    offer = [offer stringByAppendingString:price];
-    NSString *forThese;
-    NSString *conclusion;
-    if([numTickets isEqualToString:@"1"]) {
-        forThese = @" for this ";
-        conclusion = @" ticket.";
-    } else {
-        forThese = @" for these ";
-        conclusion = @" tickets.";
-    }
-    offer = [offer stringByAppendingString:forThese];
-    offer = [offer stringByAppendingString:numTickets];
-    offer = [offer stringByAppendingString:conclusion];
+//    NSString *offer = @"After reviewing the data, your Flash offer is $";
+//    offer = [offer stringByAppendingString:price];
+//    NSString *forThese;
+//    NSString *conclusion;
+//    if([numTickets isEqualToString:@"1"]) {
+//        forThese = @" for this ";
+//        conclusion = @" ticket.";
+//    } else {
+//        forThese = @" for these ";
+//        conclusion = @" tickets.";
+//    }
+//    offer = [offer stringByAppendingString:forThese];
+//    offer = [offer stringByAppendingString:numTickets];
+//    offer = [offer stringByAppendingString:conclusion];
 
     UIAlertView *alert = [[UIAlertView alloc]
-                          initWithTitle: @"Get Paid?"
-                          message: offer
+                          //initWithTitle: @"Get Paid?"
+                          initWithTitle:@"Tickets Identified and Accepted"
+                          //message:offer
+                          message: @"Donate and Earn a Tax Credit. At the end of the year, we'll email you a letter for your tax deduction."
                           delegate: self
-                          cancelButtonTitle:@"Get Paid"
+                          //cancelButtonTitle:@"Get Paid"
+                          cancelButtonTitle:@"Donate"
                           otherButtonTitles:@"Cancel",nil];
     [alert setTag:20];
     [alert show];
@@ -421,7 +452,7 @@ NSString *kToNumber = @"+16198221406";
 
 - (void)uploadNotification
 {
-  NSLog(@"Sending request.");
+  NSLog(@"Sending Twilio request.");
   
   // Common constants
   NSString *kTwilioSID = @"AC252b94aee1e94cc7bc1fec605b194d6c";

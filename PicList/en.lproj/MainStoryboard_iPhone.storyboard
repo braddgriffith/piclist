@@ -16,7 +16,7 @@
                                 <rect key="frame" x="69" y="252" width="183" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Sell My Tickets">
+                                <state key="normal" title="Donate My Tickets">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <state key="highlighted">
@@ -33,8 +33,8 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="The fastest way to sell tickets." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ak9-ao-uf1">
-                                <rect key="frame" x="37" y="165" width="247" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="The fastest way to donate tickets." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ak9-ao-uf1">
+                                <rect key="frame" x="20" y="165" width="280" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -73,7 +73,10 @@
                     <connections>
                         <outlet property="exampleImages" destination="5lZ-jz-eEx" id="fyE-pO-vcM"/>
                         <outlet property="infoButton" destination="Uga-1C-lg0" id="nV0-vO-P42"/>
+                        <outlet property="lineOne" destination="Ak9-ao-uf1" id="fcp-HQ-z02"/>
+                        <outlet property="lineTwo" destination="lxs-Wk-3Wf" id="lvV-IC-J5o"/>
                         <outlet property="sellButton" destination="XXS-RX-jBW" id="Zy2-tf-cpz"/>
+                        <outlet property="titleLine" destination="oVo-GV-Fj1" id="Qgb-KK-6iZ"/>
                         <segue destination="M49-ex-qLt" kind="modal" identifier="SoldSegue" id="IV2-Tw-LAW"/>
                     </connections>
                 </viewController>
@@ -98,11 +101,10 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <mutableString key="text">To use Flash...
 
-1. Hit the Sell My Tickets button. 
+1. Hit the Donate My Tickets button. 
 2. Snap a photo including your barcode (8-16 numbers and letters), section, seat and row number.
-3. Image recognition tech captures the information, researches past transactions, then quotes a price. 
-4. Accept or reject that price. 
-5. If accepted, we'll ask you for your Paypal email address.
+3. Image recognition tech captures the information. 
+4. If photo is clear and tickets are active, we'll ask you for your email address so we can send your tax deduction letter.
 
 It's that fast.
 
@@ -148,34 +150,34 @@ Please Note! Flash works for major U.S. sporting events and concerts. It occasio
                         <rect key="frame" x="0.0" y="20" width="320" height="548"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Congrats! Your tickets have sold." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gPe-lw-mfU">
-                                <rect key="frame" x="20" y="96" width="275" height="21"/>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Congrats! Your tickets were accepted." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gPe-lw-mfU">
+                                <rect key="frame" x="0.5" y="96" width="319" height="21"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Your order number is:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="upT-3e-g4f">
-                                <rect key="frame" x="20" y="132" width="194" height="21"/>
+                                <rect key="frame" x="7" y="132" width="194" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="OrderNumberLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2uX-Jk-UVN">
-                                <rect key="frame" x="188" y="132" width="146" height="21"/>
+                                <rect key="frame" x="175" y="132" width="146" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter your Paypal email address..." clearsOnBeginEditing="YES" minimumFontSize="17" id="6iP-6m-gfx">
+                            <textField opaque="NO" clipsSubviews="YES" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email address for tax deduction..." clearsOnBeginEditing="YES" minimumFontSize="17" id="6iP-6m-gfx">
                                 <rect key="frame" x="20" y="199" width="280" height="30"/>
                                 <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocorrectionType="no" keyboardType="emailAddress" returnKeyType="send" enablesReturnKeyAutomatically="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="o96-yX-0t9">
-                                <rect key="frame" x="71" y="370" width="179" height="44"/>
+                                <rect key="frame" x="97" y="370" width="127" height="44"/>
                                 <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="Confirm Paypal Email">
+                                <state key="normal" title="Confirm Email">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>

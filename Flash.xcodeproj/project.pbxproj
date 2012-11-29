@@ -264,7 +264,7 @@
 				LastUpgradeCheck = 0450;
 				ORGANIZATIONNAME = "Brad Grifffith";
 			};
-			buildConfigurationList = E66F231D164AEA2E0086E406 /* Build configuration list for PBXProject "PicList" */;
+			buildConfigurationList = E66F231D164AEA2E0086E406 /* Build configuration list for PBXProject "Flash" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -445,7 +445,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E66F231D164AEA2E0086E406 /* Build configuration list for PBXProject "PicList" */ = {
+		E66F231D164AEA2E0086E406 /* Build configuration list for PBXProject "Flash" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E66F2348164AEA2E0086E406 /* Debug */,
