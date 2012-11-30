@@ -99,7 +99,7 @@
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="qmc-93-xTA">
                                         <rect key="frame" x="20" y="20" width="280" height="477"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <mutableString key="text">To use Flash...
+                                        <string key="text">To use Flash...
 
 1. Hit the Donate My Tickets button. 
 2. Snap a photo including your barcode (8-16 numbers and letters), section, seat and row number.
@@ -108,7 +108,7 @@
 
 It's that fast.
 
-Please Note! Flash works for major U.S. sporting events and concerts. It occasionally requires human intervention, and is available between 9am and 9pm PST. Thanks! See below for a perfect photo...</mutableString>
+Please Note! Flash works for major U.S. sporting events and concerts. It occasionally requires human intervention, and is available between 9am and 9pm PST. Thanks! See below for a perfect photo...</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="highlightedColor"/>
                                     </label>
