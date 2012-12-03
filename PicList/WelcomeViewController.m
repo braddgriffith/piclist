@@ -34,6 +34,7 @@ float reuploadProgress = 0.0;
 float researchProgress = 0.0;
 MBProgressHUD *uploadingHUD;
 MBProgressHUD *reuploadingHUD;
+MBProgressHUD *transitionHUD;
 MBProgressHUD *researchingHUD;
 int originalImageX;
 int originalImageY;
@@ -216,13 +217,14 @@ NSString *kToNumber = @"+16198221406";
                 }
             }];
         } else {
-//            reuploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
-//            reuploadingHUD.labelText = @"Uploading";
-//            reuploadingHUD.mode = MBProgressHUDModeDeterminate;
-//            [self.view addSubview:reuploadingHUD];
-//            [reuploadingHUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
-//            reuploadingHUD.labelText = @"Hmmm, seems to be a slow connection!";
-//            NSLog(@"Error: %@ %@", error, [error userInfo]);
+            [uploadingHUD removeFromSuperview];
+            reuploadingHUD = [[MBProgressHUD alloc] initWithView:self.view];
+            reuploadingHUD.labelText = @"Uploading";
+            reuploadingHUD.mode = MBProgressHUDModeDeterminate;
+            [self.view addSubview:reuploadingHUD];
+            [reuploadingHUD showWhileExecuting:@selector(uploading) onTarget:self withObject:nil animated:YES];
+            reuploadingHUD.labelText = @"Hmmm, seems to be a slow connection!";
+            NSLog(@"Error: %@ %@", error, [error userInfo]);
         }
     } progressBlock:^(int percentDone) {
         // Update your progress spinner here. percentDone will be between 0 and 100.
@@ -253,9 +255,11 @@ NSString *kToNumber = @"+16198221406";
     while (researchProgress < 1.0) {
         researchProgress += researchStep;
         researchingHUD.progress = researchProgress;
-        if (researchProgress < 0.10) {
+        if (researchProgress < 0.03) {
+            [researchingHUD setLabelText:@"Uploaded! Now Checking Tickets"];
+        } else if (researchProgress < 0.20) {
             [researchingHUD setLabelText:@"Evaluating"];
-        } else if (researchProgress < 0.35) {
+        } else if (researchProgress < 0.45) {
             [researchingHUD setLabelText:@"Authenticating"];
         } else if (researchProgress < 0.75) {
             [researchingHUD setLabelText:@"Researching"];
@@ -439,7 +443,7 @@ NSString *kToNumber = @"+16198221406";
                           //initWithTitle: @"Get Paid?"
                           initWithTitle:@"Tickets Accepted"
                           //message:offer
-                          message: @"Press 'Donate' to earn a tax credit for the face value of your tickets. We'll accumulate all of your donations and email you a letter for your deduction."
+                          message: @"Press 'Donate' to earn a tax credit for the face value of your tickets. We'll accumulate all of your donations and email you a letter for your records."
                           delegate: self
                           //cancelButtonTitle:@"Get Paid"
                           cancelButtonTitle:@"Donate"
