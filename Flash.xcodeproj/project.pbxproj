@@ -364,8 +364,8 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brad Grifffith (35DT78TGW2)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brad Grifffith";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brad Grifffith";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -381,7 +381,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Flash;
-				PROVISIONING_PROFILE = "677EE39E-83B3-4A15-9391-FA78B5C4E6DA";
+				PROVISIONING_PROFILE = "8EBFFC56-927E-4BBA-804B-0ECF2259923E";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8EBFFC56-927E-4BBA-804B-0ECF2259923E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -396,7 +397,7 @@
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Brad Grifffith (35DT78TGW2)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Brad Grifffith";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Brad Grifffith";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -406,7 +407,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				PRODUCT_NAME = Flash;
-				PROVISIONING_PROFILE = "677EE39E-83B3-4A15-9391-FA78B5C4E6DA";
+				PROVISIONING_PROFILE = "8EBFFC56-927E-4BBA-804B-0ECF2259923E";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "8EBFFC56-927E-4BBA-804B-0ECF2259923E";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -417,6 +418,7 @@
 		E66F234B164AEA2E0086E406 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brad Grifffith (35DT78TGW2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -426,6 +428,7 @@
 				INFOPLIST_FILE = "PicList/PicList-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Flash;
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "677EE39E-83B3-4A15-9391-FA78B5C4E6DA";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -434,6 +437,8 @@
 		E66F234C164AEA2E0086E406 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Brad Grifffith (35DT78TGW2)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Brad Grifffith (35DT78TGW2)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)\"",
@@ -443,6 +448,8 @@
 				INFOPLIST_FILE = "PicList/PicList-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = Flash;
+				PROVISIONING_PROFILE = "677EE39E-83B3-4A15-9391-FA78B5C4E6DA";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "677EE39E-83B3-4A15-9391-FA78B5C4E6DA";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

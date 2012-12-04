@@ -63,12 +63,18 @@ NSString *kToNumber = @"+16198221406";
             serverQueries = [[defaults objectForKey:@"ServerQueries"] intValue];
             queryTime = [[defaults objectForKey:@"QueryTime"] floatValue];
             imageQuality = [[defaults objectForKey:@"ImageQuality"] floatValue];
+            titleLine.text = [defaults objectForKey:@"IntroLineOne"];
+            lineOne.text = [defaults objectForKey:@"IntroLineTwo"];
+            lineTwo.text = [defaults objectForKey:@"IntroLineThree"];
             NSLog(@"uploadStep: %f", uploadStep);
             NSLog(@"researchStep: %f", researchStep);
             NSLog(@"researchStep: %d", prepQueries);
             NSLog(@"serverQueries: %d", serverQueries);
             NSLog(@"queryTime: %f", queryTime);
             NSLog(@"imageQuality: %f", imageQuality);
+            NSLog(@"IntroLineOne: %@", self.titleLine.text);
+            NSLog(@"IntroLineTwo: %@", self.lineOne.text);
+            NSLog(@"IntroLineThree: %@", self.lineTwo.text);
         } else {
             // Log details of our failure
             NSLog(@"Error setting Sold tag: %@ %@", error, [error userInfo]);
@@ -182,7 +188,6 @@ NSString *kToNumber = @"+16198221406";
     
     [imageFile saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error) {
         if (!error) {
-            
             // Create a PFObject around a PFFile and associate it with the current user
             self.userPhoto = [PFObject objectWithClassName:@"UserPhoto"];
             [self.userPhoto setObject:imageFile forKey:@"imageFile"];
@@ -407,7 +412,7 @@ NSString *kToNumber = @"+16198221406";
 //                              //initWithTitle: @"Couldn't Price Tickets"
 //                              initWithTitle: @"Couldn't Find Tickets"
 //                              //message: @"Request timed out. It looks like we couldn't find a market price for those tickets."
-//                              message: @"Hmmmmm, we couldn't find a market for those tickets."
+//                              message: @"Hmmmmm, we couldn't find a market for these tickets."
 //                              delegate: self
 //                              cancelButtonTitle:@"Retake"
 //                              otherButtonTitles:nil];
@@ -443,7 +448,7 @@ NSString *kToNumber = @"+16198221406";
                           //initWithTitle: @"Get Paid?"
                           initWithTitle:@"Tickets Accepted"
                           //message:offer
-                          message: @"Press 'Donate' to earn a tax credit for the face value of your tickets. We'll accumulate all of your donations and email you a letter for your records."
+                          message: @"Press 'Donate' to earn a tax credit for the face value of your tickets. At tax time, we'll email you a letter for your records."
                           delegate: self
                           //cancelButtonTitle:@"Get Paid"
                           cancelButtonTitle:@"Donate"
