@@ -448,10 +448,10 @@ NSString *kToNumber = @"+16198221406";
                           //initWithTitle: @"Get Paid?"
                           initWithTitle:@"Tickets Accepted"
                           //message:offer
-                          message: @"Press 'Donate' to earn a tax credit for the face value of your tickets. At tax time, we'll email you a letter for your records."
+                          message: @"Press 'Share' to submit your tickets. We'll email you a link allowing you to recieve credit for your donation OR priority access to future events."
                           delegate: self
                           //cancelButtonTitle:@"Get Paid"
-                          cancelButtonTitle:@"Donate"
+                          cancelButtonTitle:@"Share"
                           otherButtonTitles:@"Cancel",nil];
     [alert setTag:20];
     [alert show];

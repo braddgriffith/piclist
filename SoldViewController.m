@@ -105,10 +105,10 @@ User *localUser;
     UIAlertView *alert = [[UIAlertView alloc]
                           initWithTitle:@"Address Accepted"
                           //message:@"We're processing your Paypal payment."
-                          message:@"We've stored your email address and will reach out to you with your tax deduction."
+                          message:@"We've stored your email address and will reach out to you with next steps."
                           delegate:self
                           //cancelButtonTitle:@"Sell Again"
-                          cancelButtonTitle:@"Donate Again"
+                          cancelButtonTitle:@"Share Again"
                           otherButtonTitles:@"Done", nil];
     alert.alertViewStyle = UIAlertViewStyleDefault;
     alert.tag = 10;
