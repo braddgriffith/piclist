@@ -101,14 +101,13 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <mutableString key="text">To use Flash...
 
-1. Hit the Donate My Tickets button. 
+1. Hit the Share My Tickets button. 
 2. Snap a photo including your barcode (8-16 numbers and letters), section, seat and row number.
 3. Image recognition tech captures the information. 
-4. If photo is clear and tickets are active, we'll ask you for your email address so we can send your tax deduction letter for the face value of your tickets.
-
+4. If photo is clear and tickets are active, we'll ask you for your email address so you can complete your share action. 
 It's that fast.
 
-Please Note! Flash works for major U.S. sporting events and concerts. Please consult with your tax professional to determine how you may benefit from this donation. According to our lawyers, you have been provided no goods or services in consideration, in whole or in part, for your donation. See below for a perfect photo...</mutableString>
+Please Note! Flash works for major U.S. sporting events and concerts. Please consult with your tax professional to determine how you may benefit from this donation. According to our lawyers, you have been provided no goods or services in consideration, in whole or in part, for your sharig. See below for a perfect photo...</mutableString>
                                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                         <nil key="highlightedColor"/>
                                     </label>
